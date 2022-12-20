@@ -11,6 +11,7 @@
 Embeded a string into an existing image.
 
 # What is Steganography?
+
 [Wikipedia](https://en.wikipedia.org/wiki/Steganography) defines steganography:
 
 > the practice of representing information within another message or physical objec
@@ -27,7 +28,17 @@ npm install --save steganographyts
 
 ## How to add a string into an image
 
+```typescript
+await addMessageToImage("Your message", "./yourimage.png", "./imagewithmessage.png");
+```
+
 ## How to extract the string from an image
+
+```typescript
+const message = await getMessageFromImage(
+  "./imagewithmessage.png"
+);
+```
 
 # Information for Developer
 
@@ -37,10 +48,11 @@ The build produces a EcmaScript Module and a CommonJS Module into the `dist` fol
 
 ## Test
 
-```
+```sh
 npm run test
 ```
 
 ## Debug
 
 There is a VsCode Launch to debug the unit test. However, if you are running on Windows, you need to ensure you install `npm install` on the Windows machine using Powershell and not WSL as the Sharp library install different packages depending if it runs on WSL or Powershell.
+
