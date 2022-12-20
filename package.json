@@ -1,5 +1,5 @@
 {
-  "name": "steganographyts",
+  "name": "@mrdesjardins/steganography",
   "version": "0.0.1",
   "description": "Basic Steganography library that add text into an image",
   "main": "dist/lib/cjs/index.js",
