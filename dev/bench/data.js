@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1671517414591,
+  "lastUpdate": 1671517791758,
   "repoUrl": "https://github.com/MrDesjardins/steganographyts",
   "entries": {
     "Benchmark": [
@@ -135,6 +135,51 @@ window.BENCHMARK_DATA = {
             "range": "±4.45%",
             "unit": "ops/sec",
             "extra": "82 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mrdesjardins@gmail.com",
+            "name": "Patrick",
+            "username": "MrDesjardins"
+          },
+          "committer": {
+            "email": "mrdesjardins@gmail.com",
+            "name": "Patrick",
+            "username": "MrDesjardins"
+          },
+          "distinct": true,
+          "id": "ff751788373a7294ea7e297b2294c7dc5f8177d8",
+          "message": "Change npm access",
+          "timestamp": "2022-12-19T22:28:43-08:00",
+          "tree_id": "027c2b15ec55f715d54d30b10cad7e44aad1359c",
+          "url": "https://github.com/MrDesjardins/steganographyts/commit/ff751788373a7294ea7e297b2294c7dc5f8177d8"
+        },
+        "date": 1671517790761,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "addMessageIntoBuffer Small Message",
+            "value": 27672,
+            "range": "±1.07%",
+            "unit": "ops/sec",
+            "extra": "87 samples"
+          },
+          {
+            "name": "addMessageIntoBuffer Medium Message",
+            "value": 681,
+            "range": "±1.46%",
+            "unit": "ops/sec",
+            "extra": "84 samples"
+          },
+          {
+            "name": "addMessageIntoBuffer Long Message",
+            "value": 235,
+            "range": "±5.71%",
+            "unit": "ops/sec",
+            "extra": "77 samples"
           }
         ]
       }
