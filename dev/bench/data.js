@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1671517140320,
+  "lastUpdate": 1671517414591,
   "repoUrl": "https://github.com/MrDesjardins/steganographyts",
   "entries": {
     "Benchmark": [
@@ -90,6 +90,51 @@ window.BENCHMARK_DATA = {
             "range": "±4.73%",
             "unit": "ops/sec",
             "extra": "83 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mrdesjardins@gmail.com",
+            "name": "Patrick",
+            "username": "MrDesjardins"
+          },
+          "committer": {
+            "email": "mrdesjardins@gmail.com",
+            "name": "Patrick",
+            "username": "MrDesjardins"
+          },
+          "distinct": true,
+          "id": "100573dfb709b7a5daa43165348aec8edc28c8e6",
+          "message": "Change name since NPM does not allow similar name of existing package",
+          "timestamp": "2022-12-19T22:22:30-08:00",
+          "tree_id": "9965ff8d44a39e5d114fc9e0c72f33d0754b9b1b",
+          "url": "https://github.com/MrDesjardins/steganographyts/commit/100573dfb709b7a5daa43165348aec8edc28c8e6"
+        },
+        "date": 1671517413883,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "addMessageIntoBuffer Small Message",
+            "value": 38261,
+            "range": "±0.43%",
+            "unit": "ops/sec",
+            "extra": "96 samples"
+          },
+          {
+            "name": "addMessageIntoBuffer Medium Message",
+            "value": 981,
+            "range": "±2.30%",
+            "unit": "ops/sec",
+            "extra": "89 samples"
+          },
+          {
+            "name": "addMessageIntoBuffer Long Message",
+            "value": 323,
+            "range": "±4.45%",
+            "unit": "ops/sec",
+            "extra": "82 samples"
           }
         ]
       }
