@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "target": "ES2020" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "module": "CommonJS" /* Specify what module code is generated. */,
+    "outDir": "./dist/lib/cjs" /* Specify an output folder for all emitted files. */
+  }
+}
