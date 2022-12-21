@@ -1,14 +1,22 @@
 {
   "name": "@mrdesjardins/steganography",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Basic Steganography library that add text into an image",
-  "main": "dist/lib/cjs/index.js",
-  "module": "dist/lib/es/index.js",
-  "types": "dist/lib/es/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "/dist"
+  ],
   "scripts": {
-    "build": "npm run build:es && npm run build:commonjs",
-    "build:es": "npx tsc --project tsconfig.json",
-    "build:commonjs": "npx tsc --project tsconfig.commonjs.json",
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
     "test": "npx jest",
     "test:watch": "npx jest --watchAll",
     "test:coverage": "npx jest --coverage",
@@ -45,6 +53,7 @@
     "sharp": "^0.31.2",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
+    "tsup": "^6.5.0",
     "typescript": "^4.9.4"
   },
   "devDependencies": {
