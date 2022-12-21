@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1671517897381,
+  "lastUpdate": 1671584627136,
   "repoUrl": "https://github.com/MrDesjardins/steganographyts",
   "entries": {
     "Benchmark": [
@@ -225,6 +225,51 @@ window.BENCHMARK_DATA = {
             "range": "±4.86%",
             "unit": "ops/sec",
             "extra": "83 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mrdesjardins@gmail.com",
+            "name": "Patrick",
+            "username": "MrDesjardins"
+          },
+          "committer": {
+            "email": "mrdesjardins@gmail.com",
+            "name": "Patrick",
+            "username": "MrDesjardins"
+          },
+          "distinct": true,
+          "id": "2aa3b0eeb11358cbde4fc31b2c109f248556acf3",
+          "message": "Update github action to v3",
+          "timestamp": "2022-12-20T17:02:41-08:00",
+          "tree_id": "776a4747add871dae9e733528b014a44a1b60553",
+          "url": "https://github.com/MrDesjardins/steganographyts/commit/2aa3b0eeb11358cbde4fc31b2c109f248556acf3"
+        },
+        "date": 1671584626172,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "addMessageIntoBuffer Small Message",
+            "value": 38313,
+            "range": "±0.23%",
+            "unit": "ops/sec",
+            "extra": "96 samples"
+          },
+          {
+            "name": "addMessageIntoBuffer Medium Message",
+            "value": 953,
+            "range": "±4.70%",
+            "unit": "ops/sec",
+            "extra": "88 samples"
+          },
+          {
+            "name": "addMessageIntoBuffer Long Message",
+            "value": 322,
+            "range": "±5.20%",
+            "unit": "ops/sec",
+            "extra": "82 samples"
           }
         ]
       }
