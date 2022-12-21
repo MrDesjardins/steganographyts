@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1671601135900,
+  "lastUpdate": 1671639332446,
   "repoUrl": "https://github.com/MrDesjardins/steganographyts",
   "entries": {
     "Benchmark": [
@@ -360,6 +360,51 @@ window.BENCHMARK_DATA = {
             "range": "±4.73%",
             "unit": "ops/sec",
             "extra": "82 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mrdesjardins@gmail.com",
+            "name": "Patrick",
+            "username": "MrDesjardins"
+          },
+          "committer": {
+            "email": "mrdesjardins@gmail.com",
+            "name": "Patrick",
+            "username": "MrDesjardins"
+          },
+          "distinct": true,
+          "id": "e6beb89e01e3d9aaee584612f110341829636538",
+          "message": "Fix bug on file saving\n- Add unit tests about file saving\nUnit Tests\n- Add unit tests using Jest to reach some exception cases",
+          "timestamp": "2022-12-21T08:14:31-08:00",
+          "tree_id": "da22bcc5db37ab2481a304a0553745130449979c",
+          "url": "https://github.com/MrDesjardins/steganographyts/commit/e6beb89e01e3d9aaee584612f110341829636538"
+        },
+        "date": 1671639331900,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "addMessageIntoBuffer Small Message",
+            "value": 38036,
+            "range": "±0.37%",
+            "unit": "ops/sec",
+            "extra": "95 samples"
+          },
+          {
+            "name": "addMessageIntoBuffer Medium Message",
+            "value": 940,
+            "range": "±4.67%",
+            "unit": "ops/sec",
+            "extra": "86 samples"
+          },
+          {
+            "name": "addMessageIntoBuffer Long Message",
+            "value": 330,
+            "range": "±5.13%",
+            "unit": "ops/sec",
+            "extra": "83 samples"
           }
         ]
       }
