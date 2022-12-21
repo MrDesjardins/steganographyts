@@ -78,10 +78,12 @@ export function getMinimumImageSizeByteRequired(message: string): number {
 /**
  * Determine if a buffer (mostly coming from the bytes from  an image) is big enough for
  * a message to be inserted
+ * 
+ * Note. This is a const instead of function to allows Jest to mock this function
  **/
-export function isBufferBigEnoughForMessage(message: string, buffer: ArrayBuffer): boolean {
+export const isBufferBigEnoughForMessage = (message: string, buffer: ArrayBuffer): boolean => {
   return getMinimumImageSizeByteRequired(message) <= buffer.byteLength;
-}
+};
 /*
 Add data into a section of the image starting at a specific position
 @buffer: Buffer with all pixels of an existing image
@@ -95,7 +97,7 @@ export function addMessageIntoBuffer(buffer: ArrayBuffer, dataToAdd: string): Bu
     throw Error("The message is too big for the buffer");
   }
   const existingBufferValues = new Uint8Array(buffer);
-  const newBuffer: Buffer = Buffer.alloc(buffer.byteLength); // Pixel color for the new image
+  const newBuffer: Buffer = Buffer.from(existingBufferValues); // Pixel color for the new image
   let slidingImagePosition = 0; // Position into the buffer
   let dataPosition = 0;
   for (; dataPosition < dataToAddWithEOF.length; dataPosition++) {
@@ -166,9 +168,37 @@ export async function addMessageToImage(
     | string,
   outputImageFullPath: string
 ): Promise<void> {
-  const { data } = await sharp(inputImageFullPath).raw().toBuffer({ resolveWithObject: true });
+  let meta: sharp.Raw = {
+    channels: 1,
+    width: 1,
+    height: 1,
+  };
+  // Open the file and extract the metadata. Needed to be able to export the buffer later
+  const { data } = await sharp(inputImageFullPath)
+    .metadata((_err, metadata) => {
+      meta = {
+        width: metadata.width ?? 0,
+        height: metadata.height ?? 0,
+        channels: metadata.channels ?? 1,
+      };
+      return {
+        width: metadata.width,
+        height: metadata.height,
+        channels: metadata.channels,
+      };
+    })
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  // Manipulate the pixels
   const newBuffer = addMessageIntoBuffer(data.buffer, message);
-  await sharp(newBuffer).toFile(outputImageFullPath);
+  // Extract the buffer into an image using the raw data from the file open
+  await sharp(newBuffer, {
+    raw: {
+      width: meta.width,
+      height: meta.height,
+      channels: meta.channels,
+    },
+  }).toFile(outputImageFullPath);
 }
 
 export async function getMessageFromImage(
