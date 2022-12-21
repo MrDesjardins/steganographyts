@@ -1,4 +1,4 @@
-[![Build, Test and Coverage](https://github.com/MrDesjardins/steganographyts/actions/workflows/action.yml/badge.svg)](https://github.com/MrDesjardins/steganographyts/actions/workflows/action.yml)
+[![Build, Test and Coverage](https://github.com/MrDesjardins/steganographyts/actions/workflows/action.yml/badge.svg?branch=master)](https://github.com/MrDesjardins/steganographyts/actions/workflows/action.yml)
 [![codecov](https://codecov.io/gh/MrDesjardins/steganographyts/branch/master/graph/badge.svg?token=0HGGX9Z9OW)](https://codecov.io/gh/MrDesjardins/steganographyts)
 [![](https://img.shields.io/badge/Benchmark-%E2%9C%85-brightgreen)](https://mrdesjardins.github.io/steganographyts/dev/bench/)
 ![ESNext Target](https://img.shields.io/badge/Target-ESNEXT-brightgreen.svg?style=plastic)
@@ -56,3 +56,6 @@ npm run test
 
 There is a VsCode Launch to debug the unit test. However, if you are running on Windows, you need to ensure you install `npm install` on the Windows machine using Powershell and not WSL as the Sharp library install different packages depending if it runs on WSL or Powershell.
 
+# How is the Steganography TypeScript working?
+
+If you want to get further detail about how the deta is injected into the image using this library you can follow this [blog post](https://patrickdesjardins.com/blog).

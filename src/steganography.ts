@@ -152,7 +152,18 @@ export function getMessagerFromBuffer(buffer: ArrayBuffer): string {
 
 export async function addMessageToImage(
   message: string,
-  inputImageFullPath: string,
+  inputImageFullPath:
+    | Buffer
+    | Uint8Array
+    | Uint8ClampedArray
+    | Int8Array
+    | Uint16Array
+    | Int16Array
+    | Uint32Array
+    | Int32Array
+    | Float32Array
+    | Float64Array
+    | string,
   outputImageFullPath: string
 ): Promise<void> {
   const { data } = await sharp(inputImageFullPath).raw().toBuffer({ resolveWithObject: true });
@@ -160,7 +171,20 @@ export async function addMessageToImage(
   await sharp(newBuffer).toFile(outputImageFullPath);
 }
 
-export async function getMessageFromImage(inputImageFullPath: string): Promise<string> {
+export async function getMessageFromImage(
+  inputImageFullPath:
+    | Buffer
+    | Uint8Array
+    | Uint8ClampedArray
+    | Int8Array
+    | Uint16Array
+    | Int16Array
+    | Uint32Array
+    | Int32Array
+    | Float32Array
+    | Float64Array
+    | string
+): Promise<string> {
   const { data } = await sharp(inputImageFullPath).raw().toBuffer({ resolveWithObject: true });
   const message = getMessagerFromBuffer(data.buffer);
   return Promise.resolve(message);
