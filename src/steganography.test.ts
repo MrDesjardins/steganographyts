@@ -4,6 +4,7 @@ import path from "path";
 import fs from "fs";
 import * as steganography from "./steganography";
 const OUT_FILE_NAME = "out.png";
+
 describe("Test Raw from image path", () => {
   it("Gives RGBA information for each pixel", async () => {
     const imagePath = path.join(__dirname, "..", "testAssets/prestine.png");
@@ -51,7 +52,7 @@ describe("Testing Saving File", () => {
     });
   });
 });
-describe(steganography.packBit.name, () => {
+describe(steganography.unpackBit.name, () => {
   describe("Number with LSB with 0", () => {
     const num: number = 90;
     it("returns 0", () => {
@@ -66,7 +67,7 @@ describe(steganography.packBit.name, () => {
   });
 });
 
-describe(steganography.unpackBit.name, () => {
+describe(steganography.packBit.name, () => {
   describe("with a number that has already a LSB of 1", () => {
     const num: number = 91;
     describe("Add 1", () => {
@@ -96,7 +97,7 @@ describe(steganography.unpackBit.name, () => {
 });
 
 describe(steganography.getMinimumImageSizeByteRequired.name, () => {
-  describe("Three words", () => {
+  describe("Three chars", () => {
     const message = "Bye";
     it("needs 8*3 bytes", () => {
       expect(steganography.getMinimumImageSizeByteRequired(message)).toBe(8 * 3);
@@ -109,7 +110,7 @@ describe(steganography.charToBinaryString.name, () => {
     it("produces the binary value of 65", () => {
       expect(steganography.charToBinaryString(65)).toBe("01000001");
     });
-    it("produces the binary value of 65", () => {
+    it("produces the binary value of 2", () => {
       expect(steganography.charToBinaryString(2)).toBe("00000010");
     });
   });
