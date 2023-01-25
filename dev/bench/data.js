@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1674610578058,
+  "lastUpdate": 1674610686186,
   "repoUrl": "https://github.com/MrDesjardins/steganographyts",
   "entries": {
     "Benchmark": [
@@ -675,6 +675,51 @@ window.BENCHMARK_DATA = {
             "range": "±6.91%",
             "unit": "ops/sec",
             "extra": "80 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mrdesjardins@gmail.com",
+            "name": "Patrick Desjardins",
+            "username": "MrDesjardins"
+          },
+          "committer": {
+            "email": "mrdesjardins@gmail.com",
+            "name": "Patrick Desjardins",
+            "username": "MrDesjardins"
+          },
+          "distinct": true,
+          "id": "37f5c91c4373c2c8b9dce739cbd4572f5b2b2ad6",
+          "message": "Update codecov action version from v2 to v3",
+          "timestamp": "2023-01-24T17:37:04-08:00",
+          "tree_id": "6df668ce78b994a8de1b9148cd0a21596b7cf402",
+          "url": "https://github.com/MrDesjardins/steganographyts/commit/37f5c91c4373c2c8b9dce739cbd4572f5b2b2ad6"
+        },
+        "date": 1674610685645,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "addMessageIntoBuffer Small Message",
+            "value": 37818,
+            "range": "±0.33%",
+            "unit": "ops/sec",
+            "extra": "97 samples"
+          },
+          {
+            "name": "addMessageIntoBuffer Medium Message",
+            "value": 954,
+            "range": "±3.56%",
+            "unit": "ops/sec",
+            "extra": "90 samples"
+          },
+          {
+            "name": "addMessageIntoBuffer Long Message",
+            "value": 323,
+            "range": "±4.82%",
+            "unit": "ops/sec",
+            "extra": "79 samples"
           }
         ]
       }
