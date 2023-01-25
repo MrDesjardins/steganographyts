@@ -14,7 +14,7 @@ Embeded a string into an existing image.
 
 [Wikipedia](https://en.wikipedia.org/wiki/Steganography) defines steganography:
 
-> the practice of representing information within another message or physical objec
+> the practice of representing information within another message or physical object
 
 This library uses a known technic which is to hide the bytes of the message into the bytes of the color.
 
