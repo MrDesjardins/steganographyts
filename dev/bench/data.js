@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1673483136313,
+  "lastUpdate": 1674610008444,
   "repoUrl": "https://github.com/MrDesjardins/steganographyts",
   "entries": {
     "Benchmark": [
@@ -540,6 +540,51 @@ window.BENCHMARK_DATA = {
             "range": "±5.07%",
             "unit": "ops/sec",
             "extra": "83 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "mrdesjardins@gmail.com",
+            "name": "Patrick Desjardins",
+            "username": "MrDesjardins"
+          },
+          "committer": {
+            "email": "mrdesjardins@gmail.com",
+            "name": "Patrick Desjardins",
+            "username": "MrDesjardins"
+          },
+          "distinct": true,
+          "id": "eb557da9cf3996e6df0bcb90717ca22090f1f407",
+          "message": "Add the possibility of encrypting and decrypting the message using the same encryption methodology used in the counter party Rust library.\n- Modify unit tests\n- Add readme explanation of the new option\n- Add depedency on the crypto-js library",
+          "timestamp": "2023-01-24T17:25:25-08:00",
+          "tree_id": "5b7f77e51fefee43082b4acfc4129aaf049364db",
+          "url": "https://github.com/MrDesjardins/steganographyts/commit/eb557da9cf3996e6df0bcb90717ca22090f1f407"
+        },
+        "date": 1674610007708,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "addMessageIntoBuffer Small Message",
+            "value": 37392,
+            "range": "±0.19%",
+            "unit": "ops/sec",
+            "extra": "93 samples"
+          },
+          {
+            "name": "addMessageIntoBuffer Medium Message",
+            "value": 936,
+            "range": "±3.95%",
+            "unit": "ops/sec",
+            "extra": "88 samples"
+          },
+          {
+            "name": "addMessageIntoBuffer Long Message",
+            "value": 318,
+            "range": "±5.76%",
+            "unit": "ops/sec",
+            "extra": "80 samples"
           }
         ]
       }
