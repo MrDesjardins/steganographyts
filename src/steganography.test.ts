@@ -34,24 +34,64 @@ describe("Test Raw from buffer", () => {
   });
 });
 describe("Testing Saving File", () => {
-  afterEach(() => {
-    fs.unlinkSync(OUT_FILE_NAME);
+  describe("Not Encrypted", () => {
+    afterEach(() => {
+      fs.unlinkSync(OUT_FILE_NAME);
+    });
+    describe("Test Saving File without Changing Pixel", () => {
+      it("Saves a file that is the same", async () => {
+        await steganography.addMessageToImage("", "testAssets/prestine.png", OUT_FILE_NAME);
+      });
+    });
+
+    describe("Save Image and Read Image", () => {
+      it("Retrieves the message", async () => {
+        const originalText = "Test 123";
+        await steganography.addMessageToImage(
+          originalText,
+          "testAssets/prestine.png",
+          OUT_FILE_NAME
+        );
+        const text = await steganography.getMessageFromImage(OUT_FILE_NAME);
+        expect(text).toBe(originalText);
+      });
+    });
   });
+});
+describe("Encrypted", () => {
+  const password: string = "Secret Password Here";
+
   describe("Test Saving File without Changing Pixel", () => {
+    afterEach(() => {
+      fs.unlinkSync(OUT_FILE_NAME);
+    });
     it("Saves a file that is the same", async () => {
-      await steganography.addMessageToImage("", "testAssets/prestine.png", OUT_FILE_NAME);
+      await steganography.addMessageToImage("", "testAssets/prestine.png", OUT_FILE_NAME, {
+        password: password,
+      });
     });
   });
 
-  describe("Save Image and Read Image", () => {
+  describe("Save Image and Read Image Encrypted", () => {
+    afterEach(() => {
+      fs.unlinkSync("2_" + OUT_FILE_NAME);
+    });
     it("Retrieves the message", async () => {
       const originalText = "Test 123";
-      await steganography.addMessageToImage(originalText, "testAssets/prestine.png", OUT_FILE_NAME);
-      const text = await steganography.getMessageFromImage(OUT_FILE_NAME);
+      await steganography.addMessageToImage(
+        originalText,
+        "testAssets/prestine.png",
+        "2_" + OUT_FILE_NAME,
+        { password: password }
+      );
+      const text = await steganography.getMessageFromImage("2_" + OUT_FILE_NAME, {
+        password: password,
+      });
       expect(text).toBe(originalText);
     });
   });
 });
+
 describe(steganography.unpackBit.name, () => {
   describe("Number with LSB with 0", () => {
     const num: number = 90;
@@ -221,5 +261,28 @@ describe(steganography.getMessagerFromBuffer.name, () => {
       const hiddenMessage = steganography.getMessagerFromBuffer(buffer);
       expect(hiddenMessage).toBe(message);
     });
+  });
+});
+
+describe(steganography.getMessageFromImage.name, () => {
+  it("retrieves the message)", async () => {
+    const text = await steganography.getMessageFromImage("testAssets/message3lines.png");
+    expect(text).toBe(`This is a message that
+is wrapping on several
+lines!`);
+  });
+});
+
+describe(steganography.encrypt.name, () => {
+  it("encrypts the message", () => {
+    const result = steganography.encrypt("Hello", "secret");
+    expect(result).toBe("c1duCITk8I8AuotSLskHrw==");
+  });
+});
+
+describe(steganography.decrypt.name, () => {
+  it("decrypts the message", () => {
+    const result = steganography.decrypt("c1duCITk8I8AuotSLskHrw==", "secret");
+    expect(result).toBe("Hello");
   });
 });

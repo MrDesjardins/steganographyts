@@ -18,6 +18,16 @@ Embeded a string into an existing image.
 
 This library uses a known technic which is to hide the bytes of the message into the bytes of the color.
 
+More information in this [blog article](https://patrickdesjardins.com/blog/what-is-steganography-how-to-hide-text-in-image) about how I implemented the Steganography in this library.
+
+You can find a [Rust Steganography](https://github.com/MrDesjardins/steganographyrs) implementation on Github.
+
+This library relies on the least significant bits.
+
+# What is Least Significant Bits?
+
+1. [Blog Post about using the least significant bits](https://patrickdesjardins.com/blog/what-is-steganography-how-to-hide-text-in-image)
+
 # How to Use the Library
 
 ## How to install the Steganography TypeScript Library
@@ -32,12 +42,26 @@ npm install --save steganographyts
 await addMessageToImage("Your message", "./yourimage.png", "./imagewithmessage.png");
 ```
 
+## How to add a string into an image with the string encrypted
+
+```typescript
+await addMessageToImage("Your message", "./yourimage.png", "./imagewithmessage.png", {
+  password: "Your password here",
+});
+```
+
 ## How to extract the string from an image
 
 ```typescript
-const message = await getMessageFromImage(
-  "./imagewithmessage.png"
-);
+const message = await getMessageFromImage("./imagewithmessage.png");
+```
+
+## How to extract an encrypted string from an image
+
+```typescript
+const message = await getMessageFromImage("./imagewithmessage.png", {
+  password: "Your password here",
+});
 ```
 
 # Information for Developer

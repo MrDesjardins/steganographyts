@@ -1,6 +1,6 @@
 {
   "name": "@mrdesjardins/steganography",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Basic Steganography library that add text into an image",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -41,6 +41,7 @@
     "@typescript-eslint/eslint-plugin": "^5.46.1",
     "@typescript-eslint/parser": "^5.46.1",
     "benchmark": "^2.1.4",
+    "crypto-js": "^4.1.1",
     "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",
@@ -58,6 +59,7 @@
   },
   "devDependencies": {
     "@types/benchmark": "^2.1.2",
+    "@types/crypto-js": "^4.1.1",
     "@types/sharp": "^0.31.0"
   }
 }

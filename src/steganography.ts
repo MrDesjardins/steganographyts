@@ -6,7 +6,7 @@ Further reading:
 */
 
 import sharp from "sharp";
-
+import CryptoJS from "crypto-js";
 /**
  * 0 or 1
  **/
@@ -26,6 +26,21 @@ export const NUMBER_BIT_PER_BYTE = 8;
  * Character to determine where to stop reading the image
  **/
 export const EOF_CHAR = String.fromCharCode(4);
+
+/**
+ * Options to pass to the steganography add/extract message
+ **/
+export interface Options {
+  /**
+   * When defined, encrypt the message before injecting into an image
+   **/
+  password: undefined | string;
+}
+
+/**
+ * When options are not provided, these values are used
+ **/
+export const DEFAULT_OPTIONS: Options = { password: undefined };
 
 /*
 Reads the least significant bits of the pixel (Red, Green and Blue) and
@@ -78,12 +93,53 @@ export function getMinimumImageSizeByteRequired(message: string): number {
 /**
  * Determine if a buffer (mostly coming from the bytes from  an image) is big enough for
  * a message to be inserted
- * 
+ *
  * Note. This is a const instead of function to allows Jest to mock this function
  **/
 export const isBufferBigEnoughForMessage = (message: string, buffer: ArrayBuffer): boolean => {
   return getMinimumImageSizeByteRequired(message) <= buffer.byteLength;
 };
+
+/**
+ * Determine if the message needs encryption from the password parameter
+ **/
+export function encryptIfNeeded(message: string, password: undefined | string): string {
+  return password === undefined ? message : encrypt(message, password);
+}
+
+/**
+ * Determine if the message needs decryption from the password parameter
+ **/
+export function decryptIfNeeded(message: string, password: undefined | string): string {
+  return password === undefined ? message : decrypt(message, password);
+}
+
+/**
+ * Encrypt the message using AES and ECB
+ **/
+export function encrypt(message: string, password: string): string {
+  const ivMd5 = CryptoJS.MD5(password); // MagicCrypt uses the MD5 of the password provided by the user. See: https://github.com/magiclen/rust-magiccrypt/blob/master/src/ciphers/aes256.rs#L47
+  const keySha256 = CryptoJS.SHA256(password); // MagicCrypt uses Sha256 of the password provided by the user.
+  return CryptoJS.AES.encrypt(message, keySha256, {
+    iv: ivMd5,
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7,
+  }).toString();
+}
+
+/**
+ * Decrypt the message using AES and ECB
+ **/
+export function decrypt(message: string, password: string): string {
+  const ivMd5 = CryptoJS.MD5(password); // MagicCrypt uses the MD5 of the password provided by the user. See: https://github.com/magiclen/rust-magiccrypt/blob/master/src/ciphers/aes256.rs#L47
+  const keySha256 = CryptoJS.SHA256(password); // MagicCrypt uses Sha256 of the password provided by the user.
+  return CryptoJS.AES.decrypt(message, keySha256, {
+    iv: ivMd5,
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7,
+  }).toString(CryptoJS.enc.Utf8);
+}
+
 /*
 Add data into a section of the image starting at a specific position
 @buffer: Buffer with all pixels of an existing image
@@ -91,8 +147,12 @@ Add data into a section of the image starting at a specific position
 @dataToAdd: Data to insert in the section
 @return: A new buffer that has the same size of the input buffer
 */
-export function addMessageIntoBuffer(buffer: ArrayBuffer, dataToAdd: string): Buffer {
-  const dataToAddWithEOF = dataToAdd + EOF_CHAR;
+export function addMessageIntoBuffer(
+  buffer: ArrayBuffer,
+  dataToAdd: string,
+  options: Options = DEFAULT_OPTIONS
+): Buffer {
+  const dataToAddWithEOF = encryptIfNeeded(dataToAdd, options.password) + EOF_CHAR;
   if (!isBufferBigEnoughForMessage(dataToAddWithEOF, buffer)) {
     throw Error("The message is too big for the buffer");
   }
@@ -166,7 +226,8 @@ export async function addMessageToImage(
     | Float32Array
     | Float64Array
     | string,
-  outputImageFullPath: string
+  outputImageFullPath: string,
+  options: Options = DEFAULT_OPTIONS
 ): Promise<void> {
   let meta: sharp.Raw = {
     channels: 1,
@@ -190,7 +251,7 @@ export async function addMessageToImage(
     .raw()
     .toBuffer({ resolveWithObject: true });
   // Manipulate the pixels
-  const newBuffer = addMessageIntoBuffer(data.buffer, message);
+  const newBuffer = addMessageIntoBuffer(data.buffer, message, options);
   // Extract the buffer into an image using the raw data from the file open
   await sharp(newBuffer, {
     raw: {
@@ -213,9 +274,11 @@ export async function getMessageFromImage(
     | Int32Array
     | Float32Array
     | Float64Array
-    | string
+    | string,
+  option: Options = DEFAULT_OPTIONS
 ): Promise<string> {
   const { data } = await sharp(inputImageFullPath).raw().toBuffer({ resolveWithObject: true });
   const message = getMessagerFromBuffer(data.buffer);
-  return Promise.resolve(message);
+  const messageDecrypted = decryptIfNeeded(message, option.password);
+  return Promise.resolve(messageDecrypted);
 }
